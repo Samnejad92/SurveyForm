@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center" dir="rtl">
+    <h1 class="display-3">فرم سنجش رضایت کارکنان ( JDI )</h1>
+    <p>
+        همكارمحترم :
+        نظر به اينكه اندازه گيري وافزايش رضايت كاركنان، يكي از اهداف عاليه اين شركت ميباشد. لذا خواهشمند است سوالات و موارد زير را به دقت مطالعه نموده و نظرخود را اعلام نماييد. اميد است با مطالعه و تحليل اين پاسخ ها بتوان اقدامات لازم را درجهت افزايش رضايت شما كه گامي مهم، درجهت نيل به اهداف عاليه سازمان مي باشد، تعريف و اجرا كرد.
+        لازم بذکر است ، اطلاعات جمع آوری شده محرمانه تلقی خواهد گردید و پس از بررسی و تحلیل ، نتایج کلی در قالب نمودار در اختیار مدیریت ارشد قرار می گیرد .تکمیل این پرسشنامه به 6 تا 12 دقیقه زمان نیاز دارد. پیشاپیش از همکاری شما سپاسگزاریم.
+        باتشكر
+        مدیر منابع انسانی و توسعه سازمان
+    </p>
+    <hr />
+    
+</div>
+<div id="tabsDiv">
+    <div id="interview" class="contentClass">
+        <h3>Interview</h3>
+
+        <p>
+            Also, in Asymptotic analysis,
+            we always talk about input sizes larger
+            than a constant value. It might
+            be possible that those large inputs
+            are never given to your software and
+            an algorithm which is asymptotically
+            slower, always performs better for
+            your particular situation. So, you
+            may end up choosing an algorithm that
+            is Asymptotically slower but faster
+            for your software.
+        </p>
+    </div>
+
+    <div id="practice" class="contentClass" dir="rtl">
+        <h3>سوالات جمعیت شناختی</h3>
+            <label for="">واحد سازمانی :</label>
+            <input type="text" name="" value="" />
+            <fieldset>
+                <legend>جنسیت:</legend>
+
+                <div>
+                    <input type="radio" id="male" name="sex" value="male" checked />
+                    <label for="male">مرد</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="female" name="sex" value="female" />
+                    <label for="female">زن</label>
+                </div>
+            </fieldset>
+            <h3>سن:</h3>
+            <label>
+                <input type="checkbox" class="radio" value="1" name="fooby[1][]" />19-30
+            </label>
+            <label>
+                <input type="checkbox" class="radio" value="1" name="fooby[1][]" />31-45
+            </label>
+            <label>
+                <input type="checkbox" class="radio" value="1" name="fooby[1][]" />46-50
+            </label>
+    </div>
+
+    <div id="python" class="contentClass">
+        <h3>Python</h3>
+
+        <p>
+            Python is a high-level, general-purpose
+            and a very popular programming language.
+            Python programming language (latest Python 3)
+            is being used in web development, Machine
+            Learning applications, along with all
+            cutting edge technology in Software Industry.
+            Python Programming Language is very
+            well suited for Beginners, also for
+            experienced programmers with other
+            programming languages like C++ and Java.
+        </p>
+    </div>
+
+    <div id="algorithms" class="contentClass">
+        <h3>Greedy Algorithms</h3>
+
+        <p>
+            Greedy is an algorithmic paradigm
+            that builds up a solution piece by
+            piece,always choosing the next piece
+            that offers the most obvious and
+            immediate benefit. So the problems
+            where choosing locally optimal also
+            leads to global solution are best
+            fit for Greedy.
+        </p>
+    </div>
+
+    <ul class="ulClass" style="height:300px">
+        <li style="list-style-type:none;">
+            <button class="linkClass" onclick="displayContent(event, 'interview')">
+                Interview
+            </button>
+        </li>
+
+        <li style="list-style-type:none;">
+            <button class="linkClass" onclick="displayContent(event, 'practice')">
+                سوالات جمعیت شناختی
+            </button>
+        </li>
+
+        <li style="list-style-type:none;">
+            <button class="linkClass" onclick="displayContent(event, 'python')">
+                Python
+            </button>
+        </li>
+
+        <li style="list-style-type:none;">
+            <button class="linkClass" onclick="displayContent(event, 'algorithms')">
+                Algorithms
+            </button>
+        </li>
+    </ul>
+</div>
+@section Scripts {
+    <script>
+    // the selector will match all input controls of type :checkbox
+    // and attach a click event handler
+    $("input:checkbox").on('click', function() {
+    // in the handler, 'this' refers to the box clicked on
+    var $box = $(this);
+    if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+    } else {
+    $box.prop("checked", false);
+    }
+    });
+    </script>
+}
