@@ -18,7 +18,11 @@ namespace SurveyForm.Data
         public DbSet<OrganizationalPosition> OrganizationalPositions { get; set; }
 
         public DbSet<MatrixTable> MatrixTable { get; set; }
-        public DbSet<MultipleChoiseQuestion> MultipleChoiseQuestions { get; set; }
+        public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
+        public DbSet<EssayQuestion> EssayQuestions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<MultipleAnswer> MultipleAnswers { get; set; }
+        public DbSet<CodeUnit> CodeUnits { get; set; }
 
     }
 }

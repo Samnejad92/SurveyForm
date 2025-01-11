@@ -1,200 +1,325 @@
 ﻿@using SurveyForm.Models
 @model dynamic
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "فرم سنجش رضایت کارکنان";
 }
+@section Styles {
+    <style>
 
-<div class="text-center" dir="rtl">
-    <h3 class="display-3">فرم سنجش رضایت کارکنان ( JDI )</h3>
+    </style>
+}
+<div class="text-center mt-2" dir="rtl">
+    <h6 class="display-5">فرم سنجش رضایت کارکنان ( JDI )</h6>
     <p>
-    <p style="text-align:initial"><strong>همكارمحترم:</strong></p>
+    <p style="text-align:initial"><strong>همكار محترم:</strong></p>
     <p>
-        نظر به اينكه اندازه گيري وافزايش رضايت كاركنان، يكي از اهداف عاليه اين شركت ميباشد. لذا خواهشمند است سوالات و موارد زير را به دقت مطالعه نموده و نظرخود را اعلام نماييد. اميد است با مطالعه و تحليل اين پاسخ ها بتوان اقدامات لازم را درجهت افزايش رضايت شما كه گامي مهم، درجهت نيل به اهداف عاليه سازمان مي باشد، تعريف و اجرا كرد.
+        نظر به اينكه اندازه گيري و افزايش رضايت كاركنان، يكي از اهداف عاليه اين شركت ميباشد. لذا خواهشمند است سوالات و موارد زير را به دقت مطالعه نموده و نظرخود را اعلام نماييد. اميد است با مطالعه و تحليل اين پاسخ ها بتوان اقدامات لازم را درجهت افزايش رضايت شما كه گامي مهم، در جهت نيل به اهداف عاليه سازمان مي باشد، تعريف و اجرا كرد.
         لازم بذکر است ، اطلاعات جمع آوری شده محرمانه تلقی خواهد گردید و پس از بررسی و تحلیل ، نتایج کلی در قالب نمودار در اختیار مدیریت ارشد قرار می گیرد .تکمیل این پرسشنامه به 6 تا 12 دقیقه زمان نیاز دارد. پیشاپیش از همکاری شما سپاسگزاریم.
     </p>
-        <p style="text-align:end">
-        <strong>باتشكر مدیر منابع انسانی و توسعه سازمان</strong>
+    <p class="thankyou" style="text-align:end">
+        <strong>با تشكر<br />مدیر منابع انسانی و توسعه سازمان</strong>
     </p>
 
 </div>
-<div id="tabsDiv">
-    @* <div id="interview" class="contentClass">
-        <h3>Interview</h3>
-
-        <p>
-            Also, in Asymptotic analysis,
-            we always talk about input sizes larger
-            than a constant value. It might
-            be possible that those large inputs
-            are never given to your software and
-            an algorithm which is asymptotically
-            slower, always performs better for
-            your particular situation. So, you
-            may end up choosing an algorithm that
-            is Asymptotically slower but faster
-            for your software.
-        </p>
-    </div> *@
-
-    <div id="community" class="contentClass" dir="rtl">
-        <h3>سوالات جمعیت شناختی</h3>
-        <label for="">واحد سازمانی :</label>
-        <input type="text" name="" value="" />
-        @* <fieldset>
-        <legend>جنسیت:</legend> *@
-        <h3>جنسیت:</h3>
-
-        @foreach (Sex sex in Model.Sexes)
-        {
-            <div>
-                <input type="radio" id="male" name="sex" value="male" checked />
-                <label for="male">@sex.sex</label>
-            </div>
-        }
-        @* </fieldset> *@
-        <h3>سن:</h3>
-        @foreach (Age age in Model.Ages)
-        {
-            <label>
-                <input type="checkbox" class="radio" value="@age.Id" name="f[1][]" />@age.From - @age.To &emsp;
-            </label>
-        }
-        <h3>سابقه کار:</h3>
-        @foreach (WorkExperience work in Model.WorkExperiences)
-        {
-            <label>
-                <input type="checkbox" class="radio" value="@work.Id" name="fo[1][]" />@work.From - @work.To &emsp;
-            </label>
-        }
-        <h3>تحصیلات:</h3>
-        @foreach (Education edu in Model.Educations)
-        {
-            <label>
-                <input type="checkbox" class="radio" value="@edu.Id" name="foo[1][]" />@edu.Name &emsp;
-            </label>
-        }
-        <h3>پست سازمانی:</h3>
-        @foreach (OrganizationalPosition posi in Model.OrganisionalPositions)
-        {
-            <label>
-                <input type="checkbox" class="radio" value="@posi.Id" name="foob[1][]" />@posi.Position &emsp;
-            </label>
-        }
-    </div>
-
-    <div id="satisfy" class="contentClass" dir="rtl">
-        <h3>رضایت شغلی</h3>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        رضایت از نفس کار (ماهیت کار)
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    @foreach (MatrixTable matrix in Model.MatrixValues)
-                                    {
-                                        <th>@matrix.Value</th>
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (MultipleChoiseQuestion question in Model.MultipleChoiceQuestions)
-                                {
-                                    <tr>
-                                        <th>@question.Question</th>
-                                        @foreach (MatrixTable matrix in Model.MatrixValues)
-                                        {
-                                            <th>@matrix.Value</th>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        رضایت از مافوق
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    @foreach (MatrixTable matrix in Model.MatrixValues)
-                                    {
-                                        <th>@matrix.Value</th>
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (MultipleChoiseQuestion question in Model.MultipleChoiceQuestions)
-                                {
-                                    <tr>
-                                        <th>@question.Question</th>
-                                        @foreach (MatrixTable matrix in Model.MatrixValues)
-                                        {
-                                            <th>@matrix.Value</th>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <ul class="ulClass" style="height:300px">
-        @* <li style="list-style-type:none;">
-            <button class="linkClass" onclick="displayContent(event, 'interview')">
-                Interview
-            </button>
-        </li> *@
-
-        <li style="list-style-type:none;">
-            <button class="linkClass" onclick="displayContent(event, 'community')">
-                سوالات جمعیت شناختی
-            </button>
-        </li>
-
-        <li style="list-style-type:none;">
-            <button class="linkClass" onclick="displayContent(event, 'satisfy')">
-                رضایت شغلی
-            </button>
-        </li>
-
-    </ul>
-</div>
-@section Scripts {
-    <script>
-        // the selector will match all input controls of type :checkbox
-        // and attach a click event handler
-        $("input:checkbox").on('click', function() {
-            // in the handler, 'this' refers to the box clicked on
-            var $box = $(this);
-            if ($box.is(":checked")) {
-                // the name of the box is retrieved using the .attr() method
-                // as it is assumed and expected to be immutable
-                var group = "input:checkbox[name='" + $box.attr("name") + "']";
-                // the checked state of the group/box on the other hand will change
-                // and the current value is retrieved using .prop() method
-                $(group).prop("checked", false);
-                $box.prop("checked", true);
-            } else {
-                $box.prop("checked", false);
+<form id="surveyForm" method="post" onsubmit="return copyContent();">
+    <div id="tabsDiv">
+        <div id="community" class="contentClass">
+            <h5>سوالات جمعیت شناختی</h5><br />
+            <div class="flex-container">
+                <h6>واحد سازمانی:</h6>&emsp;
+                <select id="select-unit" name="select-unit" placeholder="واحد...">
+                    <option value="-1" selected>-- انتخاب واحد سازمانی --</option>
+                    @foreach (CodeUnit un in Model.CodeUnits)
+                    {
+                        <option value="@un.codeUnit">@un.Unit</option>
+                    }
+                </select>
+            </div><br />
+            <h6>جنسیت:</h6>
+            @foreach (Sex sex in Model.Sexes)
+            {
+                <input type="radio" id="@sex.sex" name="sex" value="@sex.sex" />
+                <label for="male">@sex.SexFa</label>
             }
-        });
-    </script>
+            <br />
+            <br />
+            <h6>سن:</h6>&emsp;
+            @foreach (Age age in Model.Ages)
+            {
+                <label>
+                    <input type="checkbox" class="radio" value="@age.Id" name="f[1][]" />@age.Range &emsp;
+                </label>
+            }
+            <br />
+            <br />
+            <h6>سابقه کار:</h6>&emsp;
+            @foreach (WorkExperience work in Model.WorkExperiences)
+            {
+                <label>
+                    <input type="checkbox" class="radio" value="@work.Id" name="fo[1][]" />@work.Range &emsp;
+                </label>
+            }
+            <br />
+            <br />
+            <h6>تحصیلات:</h6>&emsp;
+            @foreach (Education edu in Model.Educations)
+            {
+                <label>
+                    <input type="checkbox" class="radio" value="@edu.Id" name="foo[1][]" />@edu.Name &emsp;
+                </label>
+            }
+            <br />
+            <br />
+            <h6>پست سازمانی:</h6>&emsp;
+            @foreach (OrganizationalPosition posi in Model.OrganisionalPositions)
+            {
+                <label>
+                    <input type="checkbox" class="radio" value="@posi.Id" name="foob[1][]" />@posi.Position &emsp;
+                </label>
+            }
+        </div>
+        <div id="satisfy" class="contentClass" dir="rtl">
+            <h5>رضایت شغلی</h5><br />
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button  active" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            سوالات رضایت از نفس کار (ماهیت کار)
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @foreach (MatrixTable matrix in Model.MatrixValues)
+                                        {
+                                            <th>@matrix.Value</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MultipleChoiceQuestion question in Model.MultipleChoiceQuestions1)
+                                    {
+                                        <tr>
+                                            <th>@question.Question</th>
+                                            @foreach (MatrixTable matrix in Model.MatrixValues)
+                                            {
+                                                <th><input type="checkbox" class="radio" value="@matrix.Id" name="q[@question.QuestionOrder]" /></th>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            سوالات رضایت از مافوق
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @foreach (MatrixTable matrix in Model.MatrixValues)
+                                        {
+                                            <th>@matrix.Value</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MultipleChoiceQuestion question in Model.MultipleChoiceQuestions2)
+                                    {
+                                        <tr>
+                                            <th>@question.Question</th>
+                                            @foreach (MatrixTable matrix in Model.MatrixValues)
+                                            {
+                                                <th><input type="checkbox" class="radio" value="@matrix.Id" name="q[@question.QuestionOrder]" /></th>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            سوالات رضایت از حقوق و مزایا
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @foreach (MatrixTable matrix in Model.MatrixValues)
+                                        {
+                                            <th>@matrix.Value</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MultipleChoiceQuestion question in Model.MultipleChoiceQuestions3)
+                                    {
+                                        <tr>
+                                            <th>@question.Question</th>
+                                            @foreach (MatrixTable matrix in Model.MatrixValues)
+                                            {
+                                                <th><input type="checkbox" class="radio" value="@matrix.Id" name="q[@question.QuestionOrder]" /></th>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            سوالات رضایت از همکاران
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @foreach (MatrixTable matrix in Model.MatrixValues)
+                                        {
+                                            <th>@matrix.Value</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MultipleChoiceQuestion question in Model.MultipleChoiceQuestions4)
+                                    {
+                                        <tr>
+                                            <th>@question.Question</th>
+                                            @foreach (MatrixTable matrix in Model.MatrixValues)
+                                            {
+                                                <th><input type="checkbox" class="radio" value="@matrix.Id" name="q[@question.QuestionOrder]" /></th>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            سوالات رضایت از ارتقاء
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @foreach (MatrixTable matrix in Model.MatrixValues)
+                                        {
+                                            <th>@matrix.Value</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MultipleChoiceQuestion question in Model.MultipleChoiceQuestions5)
+                                    {
+                                        <tr>
+                                            <th>@question.Question</th>
+                                            @foreach (MatrixTable matrix in Model.MatrixValues)
+                                            {
+                                                <th><input type="checkbox" class="radio" value="@matrix.Id" name="q[@question.QuestionOrder]" /></th>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            سوالات رضایت از محیط کار
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @foreach (MatrixTable matrix in Model.MatrixValues)
+                                        {
+                                            <th>@matrix.Value</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MultipleChoiceQuestion question in Model.MultipleChoiceQuestions6)
+                                    {
+                                        <tr>
+                                            <th>@question.Question</th>
+                                            @foreach (MatrixTable matrix in Model.MatrixValues)
+                                            {
+                                                <th><input type="checkbox" class="radio" value="@matrix.Id" name="q[@question.QuestionOrder]" /></th>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="error-message" style="color: red;"></div>
+        </div>
+        <div id="feedback" class="contentClass" dir="rtl">
+            <h5>پیشنهادات و انتقادات</h5><br />
+            @foreach (EssayQuestion essayquestion in Model.EssayQuestions)
+            {
+                <p>
+                    <h6>@essayquestion.Question</h6>
+                    <div class='textarea' contenteditable id="@essayquestion.Id" name="@essayquestion.Id">
+                    </div>
+                    <input type="hidden" id="hiddenInput-@essayquestion.Id" name="@essayquestion.Id" />
+                </p>
+            }
+        </div>
+        <ul class="ulClass" style="height:300px">
+            <li style="list-style-type:none;">
+                <button class="linkClass" onclick="displayContent(event, 'community')">
+                    سوالات جمعیت شناختی
+                </button>
+            </li>
+            <li style="list-style-type:none;">
+                <button class="linkClass" onclick="displayContent(event, 'satisfy')">
+                    رضایت شغلی
+                </button>
+            </li>
+            <li style="list-style-type:none;">
+                <button class="linkClass" onclick="displayContent(event, 'feedback')">
+                    پیشنهادات و انتقادات
+                </button>
+            </li>
+        </ul>
+    </div>
+    <button asp-controller="Home" asp-action="Index" class="btn btn-success" id="submit_btn">ارسال اطلاعات</button>
+</form>
+@section Scripts {
+
 }

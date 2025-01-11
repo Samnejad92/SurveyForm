@@ -3,7 +3,6 @@
     public class Age
     {
         public int Id { get; set; }
-        public int From { get; set; }
-        public int To { get; set; }
+        public string? Range { get; set; }
     }
 }

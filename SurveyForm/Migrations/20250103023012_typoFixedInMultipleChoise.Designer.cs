@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SurveyForm.Data;
 
@@ -10,9 +11,11 @@ using SurveyForm.Data;
 namespace SurveyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250103023012_typoFixedInMultipleChoise")]
+    partial class typoFixedInMultipleChoise
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,73 +32,15 @@ namespace SurveyForm.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Range")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("From")
+                        .HasColumnType("int");
+
+                    b.Property<int>("To")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Ages");
-                });
-
-            modelBuilder.Entity("SurveyForm.Models.Answer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Age")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Edu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PersonnelNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkExperience")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("SurveyForm.Models.CodeUnit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("codeUnit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CodeUnits");
                 });
 
             modelBuilder.Entity("SurveyForm.Models.Education", b =>
@@ -159,33 +104,6 @@ namespace SurveyForm.Migrations
                     b.ToTable("MatrixTable");
                 });
 
-            modelBuilder.Entity("SurveyForm.Models.MultipleAnswer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PersonnelNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("QuestionName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QuestionValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MultipleAnswers");
-                });
-
             modelBuilder.Entity("SurveyForm.Models.MultipleChoiceQuestion", b =>
                 {
                     b.Property<int>("Id")
@@ -201,12 +119,9 @@ namespace SurveyForm.Migrations
                     b.Property<int>("QuestionGroup")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestionOrder")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.ToTable("MultipleChoiceQuestions");
+                    b.ToTable("MultipleChoiseQuestions");
                 });
 
             modelBuilder.Entity("SurveyForm.Models.OrganizationalPosition", b =>
@@ -234,10 +149,6 @@ namespace SurveyForm.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("SexFa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("sex")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -255,8 +166,11 @@ namespace SurveyForm.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Range")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("From")
+                        .HasColumnType("int");
+
+                    b.Property<int>("To")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

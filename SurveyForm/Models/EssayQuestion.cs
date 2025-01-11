@@ -1,6 +1,6 @@
 ﻿namespace SurveyForm.Models
 {
-    public class MultipleChoiseQuestion
+    public class EssayQuestion
     {
         public int Id { get; set; }
         public string Question { get; set; }
