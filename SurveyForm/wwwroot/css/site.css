@@ -32,6 +32,10 @@ body {
     scrollbar-width: thin;
 }
 
+.accordion-item{
+    border: none !important;
+}
+
 #tabsDiv {
     height: 600px;
     border: 2px solid #cfcfcf;
