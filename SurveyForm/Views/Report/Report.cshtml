@@ -5,6 +5,8 @@
 }
 @section Styles {
     <link href="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/css/dataTables.dataTables.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/css/buttons.dataTables.css" rel="stylesheet" type="text/css">
     <style>
         table, th, td {
             border: 1px solid #e4e4e4;
@@ -13,7 +15,7 @@
             direction: rtl;
         }
         .container {
-            margin-top: 5%;
+            margin-top: 1%;
         }
         .btn.active.focus,
         .btn.active:focus,
@@ -36,9 +38,10 @@
         }
     </style>
 }
+@* <a href="#" onclick="download_table_as_csv('my_id_table_to_export');">Download as CSV</a> *@
 <div class="row">
     <div class="col-md-12">
-        <table class="table">
+        <table class="table" id="tb">
             <thead>
                 <tr>
                     <th>واحد</th>
@@ -73,7 +76,57 @@
 </div>
 @section Scripts {
     <script src="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" type="text/javascript"></script>
+    <script src="~/lib/js/dataTables.js" type="text/javascript"></script>
+    <script src="~/lib/js/dataTables.buttons.js" type="text/javascript"></script>
+    <script src="~/lib/js/buttons.dataTables.js" type="text/javascript"></script>
+    <script src="~/lib/js/jszip.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/pdfmake.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/vfs_fonts.js" type="text/javascript"></script>
+    <script src="~/lib/js/buttons.html5.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/buttons.print.min.js" type="text/javascript"></script>
     <script>
-        var table = new DataTable("table");
+        let table = new DataTable('#tb');
+
+        new DataTable.Buttons(table, {
+            buttons: ['copy', 'excel', 'pdf', 'print']
+        });
+
+        table
+            .buttons(0, null)
+            .container()
+            .prependTo(table.table().container());
     </script>
+    @* <script>
+        // Quick and simple export target #table_id into a csv
+        function download_table_as_csv(table_id, separator = ',') {
+            // Select rows from table_id
+            var rows = document.querySelectorAll('table#' + 'tb' + ' tr');
+            // Construct csv
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    // Clean innertext to remove multiple spaces and jumpline (break csv)
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+                    data = data.replace(/"/g, '""');
+                    // Push escaped string
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script> *@
 }

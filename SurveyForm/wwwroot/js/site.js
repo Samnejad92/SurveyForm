@@ -46,9 +46,9 @@ $("input:checkbox").on('click', function () {
 $("input:radio").on('click', function () {
     validateFormFields()
 })
-$("#select-unit").on('change', function () {
-    validateFormFields()
-})
+//$("#select-unit").on('change', function () {
+//    validateFormFields()
+//})
 function copyContent() {
     var content1 = document.getElementById('1').innerHTML;
     document.getElementById('hiddenInput-1').value = content1;

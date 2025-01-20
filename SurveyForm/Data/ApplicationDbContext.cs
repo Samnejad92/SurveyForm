@@ -23,6 +23,7 @@ namespace SurveyForm.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<MultipleAnswer> MultipleAnswers { get; set; }
         public DbSet<CodeUnit> CodeUnits { get; set; }
+        public DbSet<EssayAnswer> EssayAnswers { get; set; }
 
     }
 }

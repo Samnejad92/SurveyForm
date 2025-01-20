@@ -18,6 +18,7 @@ namespace SurveyForm.Controllers
             _context = context;
         }
         public IActionResult SuccessSubmit() { return View(); }
+        public IActionResult OTPInputField() { return View(); }
         [HttpPost]
         public IActionResult Index(IFormCollection formCollection,int[] q) {
             string organizationalUnit = Convert.ToString(formCollection["select-unit"]);
@@ -45,14 +46,25 @@ namespace SurveyForm.Controllers
             _context.Answers.Add(answer);
             for (int i = 0; i < q.Length; i++)
             {
-                if (q[i] > 0) // Check if a checkbox was checked
+                if (q[i] > 0)
                 {
                     var newAnswer = new MultipleAnswer
                     {
-                        QuestionId = i + 1, // Adjust based on your question ID logic
+                        QuestionId = i + 1,
                         QuestionValue = q[i].ToString()
                     };
                     _context.MultipleAnswers.Add(newAnswer);
+                }
+            }
+            if (responses.Count > 0) {
+                for (int i = 0; i < responses.Count; i++)
+                {
+                        var essAnswer = new EssayAnswer
+                        {
+                            QuestionId = i + 1,
+                            QuestionAnswer = responses[i]
+                        };
+                        _context.EssayAnswers.Add(essAnswer);
                 }
             }
             _context.SaveChanges();
@@ -91,7 +103,7 @@ namespace SurveyForm.Controllers
 
         private List<MatrixTable> GetMatrixValues()
         {
-            return _context.MatrixTable.ToList();
+            return _context.MatrixTable.OrderByDescending(order => order.Id).ToList();
         }
 
         private List<MultipleChoiceQuestion> GetMultipleChoiceQuestions1()
