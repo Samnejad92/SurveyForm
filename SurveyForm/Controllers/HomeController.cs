@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using SurveyForm.Data;
 using SurveyForm.Models;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Xml;
 
 namespace SurveyForm.Controllers
 {
@@ -17,8 +20,8 @@ namespace SurveyForm.Controllers
             _logger = logger;
             _context = context;
         }
+
         public IActionResult SuccessSubmit() { return View(); }
-        public IActionResult OTPInputField() { return View(); }
         [HttpPost]
         public IActionResult Index(IFormCollection formCollection,int[] q) {
             string organizationalUnit = Convert.ToString(formCollection["select-unit"]);

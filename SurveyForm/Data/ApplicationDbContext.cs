@@ -24,6 +24,7 @@ namespace SurveyForm.Data
         public DbSet<MultipleAnswer> MultipleAnswers { get; set; }
         public DbSet<CodeUnit> CodeUnits { get; set; }
         public DbSet<EssayAnswer> EssayAnswers { get; set; }
+        public DbSet<PersonnelInfo> PersonnelInfos { get; set; }
 
     }
 }
