@@ -175,10 +175,11 @@
                     <input type="submit" value="ورود" />
                 </div> *@
             </form>
+            <div id="error-message" style="color: red;"></div>
             <form method="post" asp-action="SendOtp" asp-controller="OtpVerification" id="send_otp">
                 <input type="text" name="personnelNumber" id="personnel_input" style="display:none">
                 <div class="row button">
-                <input type="submit" value="ارسال کد" />
+                    <input type="submit" value="ارسال کد" disabled id="send_otp_btn" onclick="TimerOn()" />
                 </div>
                 <br />
                 <div>
@@ -280,5 +281,54 @@
         });
     </script>
     <script>
+                document.addEventListener('DOMContentLoaded', function() {
+            const personnelInput = document.getElementById('personnelNumber');
+            const submitButton = document.getElementById('send_otp_btn');
+            const errorMessage = document.getElementById('error-message');
+            function checkInput() {
+                const inputLength = personnelInput.value.length;
+                if (inputLength === 6) {
+                    submitButton.disabled = false;
+                    errorMessage.textContent = '';
+                } else {
+                    submitButton.disabled = true;
+                }
+            }
+            personnelInput.addEventListener('input', checkInput);
+        });
+
+    </script>
+    <script>
+        function TimerOn() {
+                let timerOn = true;
+
+        function timer(remaining) {
+          var m = Math.floor(remaining / 60);
+          var s = remaining % 60;
+
+          m = m < 10 ? '0' + m : m;
+          s = s < 10 ? '0' + s : s;
+          document.getElementById('send_otp_btn').value = m + ':' + s;
+          remaining -= 1;
+
+          if(remaining >= 0 && timerOn) {
+            setTimeout(function() {
+                timer(remaining);
+            }, 1000);
+            return;
+          }
+
+          if(!timerOn) {
+            // Do validate stuff here
+            return;
+          }
+
+          // Do timeout stuff here
+          alert('Timeout for otp');
+        }
+
+        timer(120);
+        }
+        TimerOn()
     </script>
 }

@@ -29,7 +29,9 @@ namespace SurveyForm.Controllers
         [HttpPost]
         public IActionResult SendOtp(Otp home, [FromForm] string personnelNumber)
         {
-            //mobile = _context.PersonnelInfos.First(z => z.PersonnelNumber == personnelNumber).ToString();
+            TempData["personnelNumber"] = personnelNumber;
+            var personnelNumberInTempData = TempData["personnelNumber"];
+            TempData.Keep();
             mobile = (from p in _context.PersonnelInfos
                      where p.PersonnelNumber == personnelNumber
                       select p.MobileNumber).FirstOrDefault().ToString();
@@ -52,7 +54,7 @@ namespace SurveyForm.Controllers
             DateTime? timestamp = TempData["timestamp"] as DateTime?;
 
             if (string.IsNullOrEmpty(finalDigit)) return NoContent();
-            else if (timestamp == null || (DateTime.Now - timestamp.Value).TotalSeconds > 60) return BadRequest("OTP Timed out");
+            else if (timestamp == null || (DateTime.Now - timestamp.Value).TotalSeconds > 120) return BadRequest("OTP Timed out");
             else if (finalDigit == storedOtp) return RedirectToAction("Index", "Home");
             else return BadRequest("Please Enter Valid OTP");
         }
@@ -75,12 +77,8 @@ namespace SurveyForm.Controllers
 
         public void MessageSender()
         {
-            //var countPhoneNumbers = _context.EssayQuestions.Count();
-            //List<string> responses = new List<string>();
             string message = $":کد ورود به نظر سنجی \n {TempData["otp"]}";
             Request Model = new Request();
-            //for (int i = 0; i <= countPhoneNumbers; i++)
-            //{
             Model.MobileNo = mobile;
             Model.MessageText = message;
 
@@ -95,11 +93,18 @@ namespace SurveyForm.Controllers
                 var statuscode = string.Join(",", R.Select(n => n.statuscode));
                 //var statusdesc = R.Select(p => p.statusdesc);
                 var statusdesc = string.Join(",", R.Select(n => n.statusdesc));
-                Console.WriteLine("---------------------------------------------------------------------------------------------------------");
-                //cmdText = "insert into tblTempMsg(Msg,SendDate,SendTime,Shop,MobileNo,statuscode,statusdesc)values('" + Session["msgAll"] + "','" + lblCurrentDate.Text + "','" + DateAndTime.TimeOfDay.ToString("HH:mm:ss:ffff") + "','ALL','" + ddlMobileNo.Items[i].Text + "','" + statuscode + "','" + statusdesc + "')";
-                //dl.SQL(al.GetConnectionString("PlanningConnectionString"), cmdText, ref lblError);
-            //}
+            var log = new LogSentMessage
+            {
+                Msg = message,
+                SendDate = DateTime.Now,
+                SendTime = DateAndTime.TimeOfDay,
+                Shop = "null",
+                MobileNo = mobile,
+                StatusCode = statuscode,
+                StatusDesc = statusdesc
+            };
+            _context.LogSentMessages.Add(log);
+            _context.SaveChanges();
         }
-
     }
 }

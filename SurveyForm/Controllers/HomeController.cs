@@ -39,12 +39,13 @@ namespace SurveyForm.Controllers
             var positions = Convert.ToString(formCollection["foob[1][]"]);
             var answer = new Answer
             {
-                Unit = organizationalUnit, // Adjust based on your question ID logic
+                Unit = organizationalUnit,
                 Sex = sex,
                 Age = ages,
                 WorkExperience = workExperiences,
                 Edu = educations,
                 Position = positions,
+                PersonnelNumber = TempData["personnelNumber"].ToString(),
             };
             _context.Answers.Add(answer);
             for (int i = 0; i < q.Length; i++)
