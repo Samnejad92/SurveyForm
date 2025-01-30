@@ -56,7 +56,7 @@ namespace SurveyForm.Controllers
 
             TempData["otp"] = home.otp;
             TempData["timestamp"] = DateTime.Now;
-            MessageSender();
+            //MessageSender();
             return RedirectToAction("OTP");
         }
 
