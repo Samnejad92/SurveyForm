@@ -26,6 +26,18 @@ namespace SurveyForm.Controllers
         {
             return View();
         }
+        public IActionResult UserNotFound()
+        {
+            return View();
+        }
+        public IActionResult NotValidOTP()
+        {
+            return View();
+        }
+        public IActionResult OTPTimedOut()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult SendOtp(Otp home, [FromForm] string personnelNumber)
         {
@@ -35,6 +47,7 @@ namespace SurveyForm.Controllers
             mobile = (from p in _context.PersonnelInfos
                      where p.PersonnelNumber == personnelNumber
                       select p.MobileNumber).FirstOrDefault().ToString();
+            if (mobile == null || mobile == "0") return RedirectToAction("UserNotFound");
             home.MobileNumber = mobile;
             home.OtpLength = home.MobileNumber.Length;
             home.OtpDigit = 5; // Length of the OTP
@@ -54,9 +67,9 @@ namespace SurveyForm.Controllers
             DateTime? timestamp = TempData["timestamp"] as DateTime?;
 
             if (string.IsNullOrEmpty(finalDigit)) return NoContent();
-            else if (timestamp == null || (DateTime.Now - timestamp.Value).TotalSeconds > 120) return BadRequest("OTP Timed out");
+            else if (timestamp == null || (DateTime.Now - timestamp.Value).TotalSeconds > 120) return RedirectToAction("OTPTimedOut");
             else if (finalDigit == storedOtp) return RedirectToAction("Index", "Home");
-            else return BadRequest("Please Enter Valid OTP");
+            else return RedirectToAction("NotValidOTP");
         }
 
         private string GenerateUniqueOtp(Otp home)
