@@ -55,7 +55,8 @@ namespace SurveyForm.Controllers
                     var newAnswer = new MultipleAnswer
                     {
                         QuestionId = i + 1,
-                        QuestionValue = q[i].ToString()
+                        QuestionValue = q[i].ToString(),
+                        PersonnelNumber = TempData["personnelNumber"].ToString(),
                     };
                     _context.MultipleAnswers.Add(newAnswer);
                 }
@@ -66,7 +67,8 @@ namespace SurveyForm.Controllers
                         var essAnswer = new EssayAnswer
                         {
                             QuestionId = i + 1,
-                            QuestionAnswer = responses[i]
+                            QuestionAnswer = responses[i],
+                            PersonnelNumber = TempData["personnelNumber"].ToString(),
                         };
                         _context.EssayAnswers.Add(essAnswer);
                 }
