@@ -190,7 +190,7 @@
                 </div>
             </form>
         <form method="post" asp-action="SubmitOtp" asp-controller="OtpVerification" id="submit_otp">
-                <input type="number" name="finalDigit" id="otp_input" style="display:none">
+                <input type="text" name="finalDigit" id="otp_input" style="display:none">
             <div id="inputs" class="inputs" dir="ltr">
                 <input class="input" type="text"
                        inputmode="numeric" maxlength="1" />
@@ -311,6 +311,7 @@
 
         timer(120);
         }
-        TimerOn()
+        if(@TempData["otp"] != null)
+            TimerOn()
     </script>
 }
